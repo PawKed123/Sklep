@@ -1,0 +1,124 @@
+﻿@using PracaDyplomowa.Models
+@model PracaDyplomowa.Models.Products
+@{
+    ViewData["Title"] = "Szczegóły produktu";
+
+}
+@using PracaDyplomowa.Session
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+@{
+
+    List<Products> products = HttpContextAccessor.HttpContext.Session.Get<List<Products>>("products");
+    Products product = null;
+    if (products != null)
+    {
+        product = products.FirstOrDefault(c => c.Id == Model.Id);
+    }
+
+}
+<br />
+
+<div class="container">
+    <h2 class="text-center font-weight-bold">Szczegóły produktu</h2>
+   
+    <form asp-action="Detail" method="post" enctype="multipart/form-data">
+        <div class="p-4 rounded row">
+            <div asp-validation-summary="ModelOnly" class="text-danger">
+
+            </div>
+            <div class="col-8">
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label class="font-weight-bold" asp-for="Name"></label>
+                    </div>
+                    <div class="col-8">
+                        <input type="hidden" asp-for="Id" />
+                        <input asp-for="Name" readonly="readonly" class="form-control" />
+                    </div>
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label class="font-weight-bold" asp-for="Price"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="Price" readonly="readonly" class="form-control" />
+                    </div>
+                    <span asp-validation-for="Price" class="text-danger"></span>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label class="font-weight-bold" asp-for="Category"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="Category" readonly="readonly" class="form-control" />
+                    </div>
+                    <span asp-validation-for="Category" class="text-danger"></span>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label class="font-weight-bold" asp-for="Description"></label>
+                    </div>
+
+                    <div class="col-12">
+                        <textarea rows="8" cols="96" style="resize: none;" disabled asp-for="Description"></textarea>
+                    </div>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-4">
+
+                    </div>
+
+                    <div class="col-8">
+                        @if (product != null)
+                        {
+
+                            <button type="submit" class="btn btn-danger form-control" asp-action="Remove" asp-route-id="@Model.Id">Usuń przedmiot z koszyka</button>
+                            <br />
+                            <br />
+                            <div class="row">
+
+
+                            </div>
+                            <input type="submit" class="btn btn-success form-control" asp-action="Detail" value="Dodaj kolejną sztukę produktu do koszyka" />
+                        }
+                        else if (Model.IsAvailable == false)
+                        {
+                            <p style="color: red; text-align: center">Niestety, aktualnie nie mamy tego produktu w sprzedaży</p>
+                        }
+                        else
+                        {
+                            <input type="submit" class="btn btn-success form-control" asp-action="Detail" value="Dodaj do koszyka" />
+                        }
+                    </div>
+                </div>
+                <br />
+                <div class="form-group">
+                    <a asp-action="AllProducts" class="btn btn-info">Powrót do listy</a>
+                    @if (product != null)
+                    {
+                        <div class="form-group float-right">
+                            <a asp-action="Cart" class="btn btn-secondary">Przejdź do koszyka</a>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="col-1">
+
+            </div>
+            <div class="col-3">
+                <img src="~/@Model.Image" style="border-radius: 5px;border: 1px solid #efefef; width: 450px; height: 350px" />
+            </div>
+    </form>
+</div>
+@section Scripts{
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+
+

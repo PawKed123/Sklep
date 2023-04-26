@@ -1,0 +1,31 @@
+﻿@model List<Products>
+@{
+    Layout = "~/Views/Shared/_Layout_Customer.cshtml";
+    ViewData["Title"] = "Strona główna";
+    string username = (string)ViewData["username"];
+}
+
+<div class="container">
+    <h2 class="display-5 text-center">Witaj, @username, w sklepie komputerowym KOMPUTRONIX</h2>
+    <br />
+    <p class="text-center font-weight-bold" style="font-size: 22px">
+        W naszym sklepie znajdziesz następujące produkty:
+    </p>
+    <p class="text-center font-weight-bold" style="font-size: 22px">
+    <p class="text-center font-weight-bold" style="font-size: 22px">
+        <a class="nav-link text-blue" asp-controller="Categories" asp-action="Laptop">Laptopy</a>
+        <a class="nav-link text-blue" asp-controller="Categories" asp-action="Komputer">Komputery stacjonarne</a>
+        <a class="nav-link text-blue" asp-controller="Categories" asp-action="Monitor">Monitory</a>
+        <a class="nav-link text-blue" asp-controller="Categories" asp-action="Podzespoly">Podzespoły komputerowe</a>
+    </p>
+    </p>
+    <p class="text-center font-weight-bold" style="font-size: 22px">
+        Oferujemy je w niskich i przystępnych cenach!
+
+        <a class="nav-link text-blue" asp-area="Identity" asp-page="/Account/Register">Zarejestruj się już teraz !</a>
+    </p>
+   <img style="position:absolute; TOP:500px; LEFT:300px; WIDTH:450px; HEIGHT:250px" src="~/images/laptop.jpg" />
+   <img style="position:absolute; TOP:500px; LEFT:770px; WIDTH:450px; HEIGHT:250px" src="~/images/komputer.jpg" />
+</div>
+
+

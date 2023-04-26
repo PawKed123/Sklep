@@ -1,0 +1,33 @@
+﻿@model List<Products>
+@{
+    ViewData["Title"] = "Komputery stacjonarne"; }
+<br />
+
+<div class="container">
+    <h2 class="font-weight-bold" style="text-align: center">Kategoria: Komputery</h2>
+    <br />
+    <div class="row">
+        @foreach (var product in Model)
+        {
+            @if (product.Category == "Komputer stacjonarny")
+            {
+                <div class="col-md-3">
+                    <div class="card mb-3 shadow-sm" style="height:95%">
+                        <label class="font-weight-bold" style="font-size: 20px; text-align:center">@product.Name</label>
+                        <img src="~/@product.Image" alt="Card Image" class="img-thumbnail" style="width: 270px; height: 180px" />
+                        <div class="card-body">
+                            <label style="font-size: 18px;"><b>Rodzaj produktu : @product.Category</b></label>
+                            <br />
+                            <label style="font-size: 18px;"><b>Cena : @product.Price</b> zł</label>
+                        </div>
+                        <div class="card" style="text-align:center">
+                            <a asp-action="Detail" asp-controller="Home" asp-route-id="@product.Id" class="btn btn-success pull-right btn-outline-dark font-weight-bold">Szczegóły produktu</a>
+                        </div>
+                    </div>
+
+                </div>
+            }
+        }
+    </div>
+</div>
+

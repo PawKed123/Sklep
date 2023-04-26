@@ -1,0 +1,75 @@
+﻿@model PracaDyplomowa.Models.Products
+@{
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+    ViewData["Title"] = "Usuń produkt";
+}
+<br />
+<div class="container">
+    <h2 class="text-center font-weight-bold">Usuń Produkt</h2>
+    <form asp-action="Delete" method="post" enctype="multipart/form-data">
+        <div class="p-4 rounded row">
+            <div asp-validation-summary="ModelOnly" class="text-danger">
+            </div>
+            <div class="col-8">
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label class="font-weight-bold" asp-for="Name"></label>
+                    </div>
+                    <div class="col-8">
+                        <input type="hidden" asp-for="Id" />
+                        <input asp-for="Name" readonly="readonly" class="form-control" />
+                    </div>
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label class="font-weight-bold" asp-for="Price"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="Price" readonly="readonly" class="form-control" />
+                    </div>
+                    <span asp-validation-for="Price" class="text-danger"></span>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label class="font-weight-bold" asp-for="Category"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="Category" readonly="readonly" class="form-control" />
+                    </div>
+                    <span asp-validation-for="Category" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label class="font-weight-bold" asp-for="Description" class="control-label"></label>
+                    <textarea rows="8" cols="60" disabled asp-for="Description" class="form-control"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label class="font-weight-bold" asp-for="IsAvailable"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="IsAvailable" disabled="disabled" class="" type="checkbox" />
+                    </div>
+                    <span asp-validation-for="IsAvailable" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <h3>Jesteś pewny, że chcesz usunąć ten produkt ?</h3>
+                    <input type="submit" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger" value="Usuń" />
+                    <a asp-action="Index" class="btn btn-success">Powrót do listy</a>
+                </div>
+            </div>
+            <div class="col-1"></div>
+            <div class="col-3">
+                <img src="~/@Model.Image" width="100%" height="250px" style="border-radius: 5px;border: 1px solid #efefef" />
+            </div>
+
+        </div>
+    </form>
+</div>
+
+@section Scripts{
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+

@@ -1,0 +1,57 @@
+﻿@using PracaDyplomowa.Models
+@model IEnumerable<Order>
+@{ Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+    ViewData["Title"] = "Lista zamówień"; }
+
+<br />
+
+<div class="container">
+    <h2 class=" text-center font-weight-bold">Lista Zamówień</h2>
+    <br />
+    <div>
+        <table class="table table-striped " id="myTable">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col" class="text-center">Nr. zamówienia</th>
+                    <th scope="col" class="text-center">Imię</th>
+                    <th scope="col" class="text-center">Nazwisko</th>
+                    <th scope="col" class="text-center">Nr. telefonu</th>
+                    <th scope="col" class="text-center">Miasto</th>
+                    <th scope="col" class="text-center">Ulica</th>
+                    <th scope="col" class="text-center">Nr. bloku</th>
+                    <th scope="col" class="text-center">Nr. mieszkania</th>
+                    <th scope="col" class="text-center">E-mail</th>
+                    <th scope="col" class="text-center">Data zamówienia</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                <tr>
+                    <td class="text-center">@item.Id</td>
+                    <td class="text-center">@item.Name</td>
+                    <td class="text-center">@item.Surname</td>
+                    <td class="text-center">@item.PhoneNumber</td>
+                    <td class="text-center">@item.City</td>
+                    <td class="text-center">@item.Street</td>
+                    <td class="text-center">@item.BlockNumber</td>
+                    <td class="text-center">@item.ApartmentNumber</td>
+                    <td class="text-center">@item.Email</td>
+                    <td class="text-center">@item.OrderDate</td>
+
+                    <td style="text-align:center; width: 150px">
+                        <a asp-controller="Order" asp-action="Delete" class="btn btn-danger" asp-route-id="@item.Id">
+                            Usuń zamówienie
+                        </a>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+

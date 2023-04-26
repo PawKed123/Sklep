@@ -1,0 +1,157 @@
+﻿@model PracaDyplomowa.Models.Order
+@using PracaDyplomowa.Session
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+@{ ViewData["Title"] = "Szczegóły zamówienia"; }
+@{ List<Products> products = HttpContextAccessor.HttpContext.Session.Get<List<Products>>("products");
+
+    if (products == null)
+    {
+        products = new List<Products>();
+    } }
+<br />
+
+<div class="container">
+    <h1 class="text-center">Szczegóły zamówienia</h1>
+    </br>
+    <form asp-action="" method="post" enctype="multipart/form-data">
+        <div class="p-4 rounded row">
+            <div asp-validation-summary="ModelOnly" class="text-danger">
+
+            </div>
+            <div class="col-6">
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label class="font-weight-bold" asp-for="Name"></label>
+                    </div>
+                    <div class="col-8">
+                        <input type="hidden" asp-for="Id" />
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label class="font-weight-bold" asp-for="Surname"></label>
+                    </div>
+                    <div class="col-8">
+
+                        <input asp-for="Surname" class="form-control" />
+                        <span asp-validation-for="Surname" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label class="font-weight-bold" asp-for="PhoneNumber"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="PhoneNumber" class="form-control" />
+                        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label class="font-weight-bold" asp-for="City"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="City" class="form-control" />
+                        <span asp-validation-for="City" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label class="font-weight-bold" asp-for="Street"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="Street" class="form-control" />
+                        <span asp-validation-for="Street" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label class="font-weight-bold" asp-for="BlockNumber"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="BlockNumber" class="form-control" />
+                        <span asp-validation-for="BlockNumber" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label class="font-weight-bold" asp-for="ApartmentNumber"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="ApartmentNumber" class="form-control" />
+                        <span asp-validation-for="ApartmentNumber" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label class="font-weight-bold" asp-for="Email"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="Email" class="form-control" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label class="font-weight-bold" asp-for="OrderDate"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="OrderDate" type="text" readonly="readonly" class="form-control" />
+                        <span asp-validation-for="OrderDate" class="text-danger"></span>
+                    </div>
+                </div>
+                <br />
+                <div class="d-flex ">
+                    <a href='javascript:history.go(-1)' class="btn btn-info">Wróć do koszyka</a>
+                </div>
+            </div>
+            <div class="col-6">
+                <table class="table table-bordered  ">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Zdjęcie</th>
+                            <th>Nazwa</th>
+                            <th>Cena</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in products)
+                        {
+            <tr>
+                <td>
+                    <img src="~/@item.Image" height="100px" width="150px" />
+                </td>
+                <td>@item.Name</td>
+                <td>@item.Price</td>
+            </tr>}
+                    </tbody>
+                </table>
+                <div class="text-right">
+                    <h3>Do zapłaty : @products.Sum(x => x.Price) zł</h3>
+                </div>
+                <div class="form-group text-right">
+                    <input type="submit" asp-controller="Order" asp-action="Checkout" value="Złóż zamówienie" class="btn btn-success" />
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts{
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        $(document).ready(function () {
+            $("#OrderDate").datepicker({
+                showAnim: "slide",
+                changeMonth: true,
+                changeYear: true
+            });
+        });</script>
+
+
+}
+
+
